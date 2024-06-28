@@ -1,7 +1,9 @@
 #include <stdio.h>
 
-int addition(int a, int b) {
-	return a + b;
+void addition(int a, int b, int *target) {
+	*target = a + b;
+
+	return;
 }
 
 int main() {
@@ -10,7 +12,7 @@ int main() {
 	a = 10;
 	b = 11;
 
-	answer = addition(a, b);
+	addition(a, b, &answer);
 
 	printf("%d\n", answer);
 
