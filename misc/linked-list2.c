@@ -10,8 +10,8 @@ typedef struct node {
 
 
 void print_list(node_t * head);
-
 void push(node_t * head, int val);
+void unshift(node_t ** head, int val);
 
 int main() {
 	// create the head node
@@ -37,6 +37,9 @@ int main() {
 	push(head, 4);
 	push(head, 5);
 
+	unshift(&head, 0);
+	unshift(&head, -1);
+
 	print_list(head);
 
 	return 0;
@@ -50,6 +53,7 @@ void print_list(node_t * head) {
 	}
 }
 
+// add element to end of list
 void push(node_t * head, int val) {
 	// start from first node_t
 	node_t * current = head;
@@ -61,4 +65,14 @@ void push(node_t * head, int val) {
 	current->next = (node_t *) malloc(sizeof(node_t));
 	current->next->val = val;
 	current->next->next = NULL;
+}
+
+// add element to beginning of list
+void unshift(node_t ** head, int val) {
+	node_t * new_node;
+	new_node = (node_t *) malloc(sizeof(node_t));
+	new_node->val = val;
+	new_node->next = * head;
+
+	* head = new_node;
 }
