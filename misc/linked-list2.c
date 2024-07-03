@@ -8,9 +8,14 @@ typedef struct node {
 	struct node * next;
 } node_t;
 
-int main() {
-	node_t * head = NULL;
 
+void print_list(node_t * head);
+
+void push(node_t * head, int val);
+
+int main() {
+	// create the head node
+	node_t * head = NULL;
 	head = (node_t *)malloc(sizeof(node_t));
 
 	if (head == NULL) {
@@ -20,7 +25,27 @@ int main() {
 	head->val = 1;
 	head->next = NULL;
 
-	printf("%d\n", head->val);
+	// add a second node
+	head->next = (node_t *)malloc(sizeof(node_t));
+	head->next->val = 2;
+	head->next->next = NULL;
+
+	// printf("%d\n", head->val);
+	// printf("%d\n", head->next->val);
+	
+	print_list(head);
 
 	return 0;
 }
+
+void print_list(node_t * head) {
+	node_t * current = head;
+	while (current != NULL) {
+		printf("%d\n", current->val);
+		current = current->next;
+	}
+};
+
+void push(node_t * head, int val) {
+
+};
