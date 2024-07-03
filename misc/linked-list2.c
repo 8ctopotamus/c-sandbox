@@ -12,6 +12,7 @@ typedef struct node {
 void print_list(node_t * head);
 void push(node_t * head, int val);
 void unshift(node_t ** head, int val);
+int shift(node_t ** head);
 
 int main() {
 	// create the head node
@@ -21,6 +22,8 @@ int main() {
 	if (head == NULL) {
 		return -1;
 	}
+
+	// add some starting values to list
 
 	head->val = 1;
 	head->next = NULL;
@@ -33,14 +36,20 @@ int main() {
 	// printf("%d\n", head->val);
 	// printf("%d\n", head->next->val);
 
+	// add to end
 	push(head, 3);
 	push(head, 4);
 	push(head, 5);
 
+	// add to beginning
 	unshift(&head, 0);
-	unshift(&head, -1);
-
+	
+	printf("List after using `unshift` and `push` functions:\n");
 	print_list(head);
+
+	int first_val = shift(&head);
+	printf("Shift result: %d\n", first_val);
+
 
 	return 0;
 }
@@ -76,3 +85,24 @@ void unshift(node_t ** head, int val) {
 
 	* head = new_node;
 }
+
+// remove item from beginning of list
+int shift(node_t ** head) {
+	int retval = -1;
+	node_t * next_node = NULL;
+
+	if (*head == NULL) {
+		return -1;
+	}
+	
+	next_node = (*head)->next;
+	retval = (*head)->val;
+	
+	free(*head);
+	*head = next_node;
+
+	return retval;
+};
+
+
+
