@@ -17,7 +17,7 @@ void addBook(char *title, int pages) {
 	Book *p, *new;
 
 	if (!first) {
-		p = malloc(sizeof(sizeof(Book)));
+		p = malloc(sizeof(Book));
 		memset(p, 0, sizeof(Book));
 		numBooks++;
 		strncpy(p->title, title, 63);
@@ -46,8 +46,11 @@ int main() {
 	first = 0;
 	numBooks = 0;
 
-	addBook("The Hobbit", 3500);
+	addBook("The Hobbit", 1500);
 	printf("%s\n", first->title);
+
+	addBook("Lord of the Flies", 1000);
+	printf("%s\n", first->next->title);
 
 	return 0;
 }
