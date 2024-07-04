@@ -42,6 +42,18 @@ void addBook(char *title, int pages) {
 	return;
 }
 
+void listbooks(char *searchstr) {
+	Book *p;
+
+	for (p = first; p->next; p++) {
+		if (!searchstr || !strcmp(searchstr, p->title)) {
+			printf("Pages %d\tTitle: '%s'\n", p->pages, p->title);
+		}
+	}
+	
+	return;
+}
+
 int main() {
 	first = 0;
 	numBooks = 0;
@@ -51,6 +63,9 @@ int main() {
 
 	addBook("Lord of the Flies", 1000);
 	printf("%s\n", first->next->title);
+
+	listbooks(0);
+	
 
 	return 0;
 }
