@@ -54,6 +54,24 @@ void listbooks(char *searchstr) {
 	return;
 }
 
+int removebook(char *searchstr) {
+	Book *p, *penultimate;
+
+	for (p = first; penultimate = p; p = p->next) {
+		if (!searchstr || !strcmp(searchstr, p->title)) {
+			if (first == p) {
+				first = p->next;
+			} else {
+				penultimate->next = (p->next) ? p->next : 0;
+			}
+			free(p);
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+
 int main() {
 	first = 0;
 	numBooks = 0;
@@ -65,8 +83,14 @@ int main() {
 	addBook("The Two Towers", 2000);
 	addBook("Return of the King", 1750);
 
-	listbooks(0);
-	listbooks("The Two Towers");
+	// printf("%s\n", first->next->next->title);
+
+	int removedbook = removebook("Lord of the Flies");
+	printf("Book removed: %d\n", removedbook);
+
+	listbooks(0); // list all
+	
+	//listbooks("The Two Towers"); // list a specific book
 
 	return 0;
 }
