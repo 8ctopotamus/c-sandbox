@@ -28,9 +28,9 @@ void addBook(char *title, int pages) {
 		return;
 	} 
 
-	for (p = first; p->next; p++);
+	for (p = first; p->next; p = p->next);
 
-	new = malloc(sizeof(sizeof(Book)));
+	new = malloc(sizeof(Book));
 	memset(new, 0, sizeof(Book));
 	numBooks++;
 	strncpy(new->title, title, 63);
@@ -45,7 +45,7 @@ void addBook(char *title, int pages) {
 void listbooks(char *searchstr) {
 	Book *p;
 
-	for (p = first; p->next; p++) {
+	for (p = first; p; p = p->next) {
 		if (!searchstr || !strcmp(searchstr, p->title)) {
 			printf("Pages %d\tTitle: '%s'\n", p->pages, p->title);
 		}
@@ -59,13 +59,14 @@ int main() {
 	numBooks = 0;
 
 	addBook("The Hobbit", 1500);
-	printf("%s\n", first->title);
-
+	//printf("%s\n", first->title);
 	addBook("Lord of the Flies", 1000);
-	printf("%s\n", first->next->title);
+	//printf("%s\n", first->next->title);
+	addBook("The Two Towers", 2000);
+	addBook("Return of the King", 1750);
 
 	listbooks(0);
-	
+	listbooks("The Two Towers");
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-# 12h of 9 different C projects
+# C Sandbox
 
 ## Resources
 
@@ -17,3 +17,5 @@
 * follow tail of file: `tail -f ./text.txt`
 * install ncurses library: `sudo apt-get install libncurses-dev`
 * link libraries when compiling: `gcc ncurses.c -o ncurses -lncurses`
+* system calls trace: `strace -fp ./<binary>`
+* library calls trace: `ltrace -f ./<binary>`
