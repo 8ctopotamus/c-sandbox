@@ -21,16 +21,27 @@ void handle_request(int client_socket) {
 	read(client_socket, buffer, sizeof(buffer) - 1);
 	printf("%s\n", buffer);
 
-	const char *response = "HTTP/1.1 200 OK\nContent-Type: text/html\r\n\r\n"
-												 "<html><body><h1>Hello world!</h1></body></html>";
-	write(client_socket, response, strlen(response));
+	// serve static html file
+	FILE *file = fopen("index.html", "r");
+	if (file == NULL) {
+		const char *response = 
+			"HTTP/1.1 404 Not Found\nContent-Type: text/html\r\n\r\n"
+			"<html><body><h1>404 Not Found</h1></body></html>";
+		write(client_socket, response, strlen(response));
+	} else {
+		char file_buffer[BUFFER_SIZE];
+		size_t bytes_read;
+		const char *response_header = "HTTP/1.1 200 OK\nContent-Type: text/html\r\n\r\n";
+		write(client_socket, response_header, strlen(response_header));
+
+		while ((bytes_read = fread(file_buffer, 1, sizeof(file_buffer), file)) > 0) {
+			write(client_socket, file_buffer, bytes_read);
+		}
+	}
 	close(client_socket);
 }
 
 int main() {
-	printf("HELLO!");
-	fflush(stdout);
-	
 	#ifdef _WIN32 
 		WSADATA wsaData;
 		if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
